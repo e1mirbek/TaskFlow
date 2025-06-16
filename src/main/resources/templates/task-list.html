@@ -1,0 +1,37 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a th:href="@{tasks/new}">Добавить задачу</a>
+    <table>
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Название</th>
+    <th>Описание</th>
+    <th>Статус</th>
+    <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task: ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.completed} ? '✔' : '❌'"></td>
+        <td>
+            <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Редактировать</a>
+            <a th:href="@{/tasks/delete/{id}(id=${task.id})}">Удалить</a>
+            <a th:href="@{/tasks/toggle-status/{id}(id=${task.id})}">Изменить статус</a>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</body>
+</html>
