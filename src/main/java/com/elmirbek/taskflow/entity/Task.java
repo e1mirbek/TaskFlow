@@ -13,6 +13,7 @@ public class Task {
     private String title;
     private String description;
     private String status;
+    private Boolean completed;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,17 +25,28 @@ public class Task {
 
     }
 
-    public Task(Long id, String title, String description, String status, User user) {
+    public Task(Long id, String title, String description, String status, Boolean completed, User user) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
+        this.completed = completed;
         this.user = user;
+
 
     }
 
 
     // getter and setter
+
+
+    public Boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
 
     public Long getId() {
         return id;
