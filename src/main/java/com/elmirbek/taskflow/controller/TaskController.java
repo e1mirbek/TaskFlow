@@ -52,7 +52,7 @@ public class TaskController {
     @GetMapping("/toggle-status/{id}")
     public String toggleStatus (@PathVariable("id") Long id) {
         Task task = taskService.getTaskById(id);
-        task.setCompleted(!task.isCompleted());
+        task.setCompleted(!task.getCompleted());
         taskService.saveTask(task);
         return "redirect:/tasks";
     }
