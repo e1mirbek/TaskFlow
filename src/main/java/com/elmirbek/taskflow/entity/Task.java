@@ -13,7 +13,7 @@ public class Task {
     private String title;
     private String description;
     private String status;
-    private Boolean completed;
+    private Boolean  completed;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -40,7 +40,7 @@ public class Task {
     // getter and setter
 
 
-    public Boolean isCompleted() {
+    public Boolean getCompleted() {
         return completed;
     }
 
