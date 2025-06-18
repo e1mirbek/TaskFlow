@@ -2,12 +2,15 @@ package com.elmirbek.taskflow.controller;
 
 
 import com.elmirbek.taskflow.entity.Task;
+import com.elmirbek.taskflow.entity.User;
 import com.elmirbek.taskflow.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -18,13 +21,13 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-     public String index (Model model){
-        List <Task> tasks = taskService.getAllTasks();
+     public String index (Model model, Principal principal){
+        String username = principal.getName();
+        List <Task> tasks = taskService.getTasksByUser_Username(username);
         System.out.println("Количество задач : " + tasks.size());
         model.addAttribute("tasks", tasks);
         return "task-list";
     }
-
 
 
     // добавитьт задачу
@@ -36,7 +39,8 @@ public class TaskController {
 
     // сохранить задачу
     @PostMapping("/save")
-    public String saveTask (@ModelAttribute("task") Task task) {
+    public String saveTask (@ModelAttribute("task") Task task, @AuthenticationPrincipal User user) {
+        task.setUser(user);
         taskService.saveTask(task);
         return "redirect:/tasks";
     }
